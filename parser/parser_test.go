@@ -1,9 +1,9 @@
 package parser
 
 import (
+	"anubis/ast"
+	"anubis/lexer"
 	"fmt"
-	"monkey/ast"
-	"monkey/lexer"
 	"testing"
 )
 

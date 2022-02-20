@@ -1,8 +1,8 @@
 package ast
 
 import (
+	"anubis/token"
 	"bytes"
-	"monkey/token"
 	"strings"
 )
 

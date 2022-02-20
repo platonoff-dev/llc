@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"monkey/token"
+	"anubis/token"
 	"testing"
 )
 

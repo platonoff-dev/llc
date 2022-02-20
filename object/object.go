@@ -1,9 +1,9 @@
 package object
 
 import (
+	"anubis/ast"
 	"bytes"
 	"fmt"
-	"monkey/ast"
 	"strings"
 )
 

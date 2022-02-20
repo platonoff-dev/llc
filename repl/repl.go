@@ -1,13 +1,13 @@
 package repl
 
 import (
+	"anubis/evaluator"
+	"anubis/lexer"
+	"anubis/object"
+	"anubis/parser"
 	"bufio"
 	"fmt"
 	"io"
-	"monkey/evaluator"
-	"monkey/lexer"
-	"monkey/object"
-	"monkey/parser"
 )
 
 const PROMPT = ">>>"
@@ -35,14 +35,14 @@ func Start(in io.Reader, out io.Writer) {
 
 		evaluated := evaluator.Eval(program, env)
 		if evaluated != nil {
-			io.WriteString(out, evaluated.Inspect())
-			io.WriteString(out, "\n")
+			_, _ = io.WriteString(out, evaluated.Inspect())
+			_, _ = io.WriteString(out, "\n")
 		}
 	}
 }
 
 func printParserErrors(out io.Writer, errors []string) {
 	for _, msg := range errors {
-		io.WriteString(out, "\t"+msg+"\n")
+		_, _ = io.WriteString(out, "\t"+msg+"\n")
 	}
 }

@@ -1,10 +1,10 @@
 package evaluator
 
 import (
+	"anubis/lexer"
+	"anubis/object"
+	"anubis/parser"
 	"fmt"
-	"monkey/lexer"
-	"monkey/object"
-	"monkey/parser"
 	"testing"
 )
 

@@ -1,9 +1,9 @@
 package evaluator
 
 import (
+	"anubis/ast"
+	"anubis/object"
 	"fmt"
-	"monkey/ast"
-	"monkey/object"
 )
 
 var (

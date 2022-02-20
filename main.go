@@ -1,8 +1,8 @@
 package main
 
 import (
+	"anubis/repl"
 	"fmt"
-	"monkey/repl"
 	"os"
 	"os/user"
 )
@@ -13,7 +13,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
+	fmt.Printf("Hello %s! This is the Anubis programming language!\n", user.Username)
 	fmt.Printf("Feel free to type in commands\n")
 	repl.Start(os.Stdin, os.Stdout)
 }
