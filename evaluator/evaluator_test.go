@@ -227,6 +227,10 @@ func TestErrorHandling(t *testing.T) {
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 		{
+			`"Hello " - "World!"`,
+			"unknown operator: STRING - STRING",
+		},
+		{
 			`if (10 > 1) {
 			if (10 > 1) {
 			  return true + false;
@@ -320,6 +324,20 @@ func TestFunctionApplication(t *testing.T) {
 
 func TestStringLiteral(t *testing.T) {
 	input := `"Hello World!"`
+
+	evaluated := testEval(input)
+	str, ok := evaluated.(*object.String)
+	if !ok {
+		t.Fatalf("evaluated is not *object.String. got=%T", evaluated)
+	}
+
+	if str.Value != "Hello World!" {
+		t.Errorf("str is not %q. got=%q", "Hello World!", str.Value)
+	}
+}
+
+func TestStringConcatenation(t *testing.T) {
+	input := `"Hello" + " " + "World!"`
 
 	evaluated := testEval(input)
 	str, ok := evaluated.(*object.String)
