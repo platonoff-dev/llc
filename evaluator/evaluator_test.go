@@ -317,3 +317,17 @@ func TestFunctionApplication(t *testing.T) {
 		})
 	}
 }
+
+func TestStringLiteral(t *testing.T) {
+	input := `"Hello World!"`
+
+	evaluated := testEval(input)
+	str, ok := evaluated.(*object.String)
+	if !ok {
+		t.Fatalf("evaluated is not *object.String. got=%T", evaluated)
+	}
+
+	if str.Value != "Hello World!" {
+		t.Errorf("str is not %q. got=%q", "Hello World!", str.Value)
+	}
+}
