@@ -3,10 +3,10 @@ package lexer
 import "anubis/token"
 
 type Lexer struct {
-	input        string
+	input        []rune
 	position     int  // current position in input (points to current char)
 	readPosition int  // current reading position in input (after current char)
-	ch           byte // current char under examination
+	ch           rune // current char under examination
 }
 
 func (l *Lexer) readChar() {
@@ -19,7 +19,7 @@ func (l *Lexer) readChar() {
 	l.readPosition += 1
 }
 
-func (l *Lexer) peakChar() byte {
+func (l *Lexer) peakChar() rune {
 	if l.readPosition >= len(l.input) {
 		return 0
 	} else {
@@ -28,7 +28,7 @@ func (l *Lexer) peakChar() byte {
 }
 
 func New(input string) *Lexer {
-	l := &Lexer{input: input}
+	l := &Lexer{input: []rune(input)}
 	l.readChar()
 	return l
 }
@@ -99,21 +99,25 @@ func (l *Lexer) NextToken() token.Token {
 
 func (l *Lexer) readIdentifier() string {
 	position := l.position
-	for isLetter(l.ch) {
+	validIdentifierSymbol := func(ch rune) bool {
+		return isLetter(ch) || isDigit(ch) || ch == '_'
+	}
+
+	for validIdentifierSymbol(l.ch) {
 		l.readChar()
 	}
-	return l.input[position:l.position]
+	return string(l.input[position:l.position])
 }
 
-func isLetter(ch byte) bool {
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_'
+func isLetter(ch rune) bool {
+	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z'
 }
 
-func newToken(tokenType token.TokenType, ch byte) token.Token {
+func newToken(tokenType token.TokenType, ch rune) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
 
-func isWhitespace(ch byte) bool {
+func isWhitespace(ch rune) bool {
 	return ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'
 }
 
@@ -129,9 +133,9 @@ func (l *Lexer) readNumber() string {
 		l.readChar()
 	}
 
-	return l.input[position:l.position]
+	return string(l.input[position:l.position])
 }
 
-func isDigit(ch byte) bool {
+func isDigit(ch rune) bool {
 	return '0' <= ch && ch <= '9'
 }
