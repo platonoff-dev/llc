@@ -349,3 +349,37 @@ func TestStringConcatenation(t *testing.T) {
 		t.Errorf("str is not %q. got=%q", "Hello World!", str.Value)
 	}
 }
+
+func TestLenBuiltin(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected interface{}
+	}{
+		{`len("")`, 0},
+		{`len("four")`, 4},
+		{`len("hello world")`, 11},
+		{`len(1)`, "argument to `len` not supported, got INTEGER"},
+		{`len("one", "two")`, "wrong number of arguments. got=2, want=1"},
+	}
+
+	for i, tt := range tests {
+		name := fmt.Sprintf("[%d]", i)
+		t.Run(name, func(t *testing.T) {
+			evaluated := testEval(tt.input)
+
+			switch expected := tt.expected.(type) {
+			case int:
+				testIntegerObject(t, evaluated, int64(expected))
+			case string:
+				errObj, ok := evaluated.(*object.Error)
+				if !ok {
+					t.Fatalf("expected is not *object.Error. got=%T (%+v)", expected, expected)
+				}
+
+				if errObj.Message != expected {
+					t.Errorf("error.Message is not %q. got=%q", expected, errObj.Message)
+				}
+			}
+		})
+	}
+}
