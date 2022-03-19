@@ -2,8 +2,8 @@ package repl
 
 import (
 	"anubis/evaluator"
+	"anubis/files"
 	"anubis/lexer"
-	"anubis/object"
 	"anubis/parser"
 	"bufio"
 	"fmt"
@@ -14,7 +14,10 @@ const PROMPT = ">>>"
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
-	env := object.NewEnvironment()
+	env, err := files.ReadStd()
+	if err != nil {
+		panic(err)
+	}
 
 	for {
 		fmt.Printf("%s ", PROMPT)
