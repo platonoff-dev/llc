@@ -5,9 +5,9 @@ let map = fn(arr, f) {
         } else {
             return iter(rest(arr), push(accumulated, f(first(arr))))
         }
-    }
+    };
     return iter(arr, [])
-}
+};
 
 let reduce = fn(arr, initial, f) {
     let iter = fn(arr, result) {
@@ -16,6 +16,6 @@ let reduce = fn(arr, initial, f) {
         } else {
             iter(rest(arr), f(result, first(arr)))
         }
-    }
+    };
     return iter(arr, initial)
-}
+};
