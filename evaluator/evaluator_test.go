@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"anubis/lexer"
-	"anubis/object"
-	"anubis/parser"
+	"llc/lexer"
+	"llc/object"
+	"llc/parser"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {

@@ -3,9 +3,9 @@ package compiler
 import (
 	"fmt"
 
-	"anubis/ast"
-	"anubis/code"
-	"anubis/object"
+	"llc/ast"
+	"llc/code"
+	"llc/object"
 )
 
 type Compiler struct {

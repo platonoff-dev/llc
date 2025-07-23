@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"anubis/evaluator"
-	"anubis/lexer"
-	"anubis/object"
-	"anubis/parser"
+	"llc/evaluator"
+	"llc/lexer"
+	"llc/object"
+	"llc/parser"
 )
 
 func ReadStd() (*object.Environment, error) {

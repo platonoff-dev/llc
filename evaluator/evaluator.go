@@ -3,8 +3,8 @@ package evaluator
 import (
 	"fmt"
 
-	"anubis/ast"
-	"anubis/object"
+	"llc/ast"
+	"llc/object"
 )
 
 var (

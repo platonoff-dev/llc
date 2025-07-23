@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"anubis/ast"
-	"anubis/lexer"
+	"llc/ast"
+	"llc/lexer"
 )
 
 func TestLetStatements(t *testing.T) {

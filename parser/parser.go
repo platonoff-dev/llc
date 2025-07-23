@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"anubis/ast"
-	"anubis/lexer"
-	"anubis/token"
+	"llc/ast"
+	"llc/lexer"
+	"llc/token"
 )
 
 const (

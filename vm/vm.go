@@ -3,9 +3,9 @@ package vm
 import (
 	"fmt"
 
-	"anubis/code"
-	"anubis/compiler"
-	"anubis/object"
+	"llc/code"
+	"llc/compiler"
+	"llc/object"
 )
 
 const StackSize = 2048

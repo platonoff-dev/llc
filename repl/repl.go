@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"anubis/compiler"
-	"anubis/lexer"
-	"anubis/parser"
-	"anubis/vm"
+	"llc/compiler"
+	"llc/lexer"
+	"llc/parser"
+	"llc/vm"
 )
 
 const PROMPT = ">>>"

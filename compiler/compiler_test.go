@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"anubis/ast"
-	"anubis/code"
-	"anubis/lexer"
-	"anubis/object"
-	"anubis/parser"
+	"llc/ast"
+	"llc/code"
+	"llc/lexer"
+	"llc/object"
+	"llc/parser"
 )
 
 type compilerTestCase struct {

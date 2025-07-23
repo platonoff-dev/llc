@@ -3,7 +3,7 @@ package evaluator
 import (
 	"fmt"
 
-	"anubis/object"
+	"llc/object"
 )
 
 var builtins = map[string]*object.Builtin{

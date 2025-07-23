@@ -6,7 +6,7 @@ import (
 	"hash/fnv"
 	"strings"
 
-	"anubis/ast"
+	"llc/ast"
 )
 
 type TypeObject string

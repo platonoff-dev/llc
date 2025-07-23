@@ -5,24 +5,15 @@ import (
 	"os"
 	"os/user"
 
-	"anubis/repl"
+	"llc/repl"
 )
 
 var art = `
-    /|       |\
-   / |       | \
-  /  |       |  \
- / /||       ||\ \
-| |_||_______||_| |
-\                /
- |  __      __  |
- |  \ |    | /  |
-  \  \|    |/  /
-   \          /
-   |\        /|
-   | \  ▄▄  / |
-   |   \__/   |
-  /            \
+ _      _      _____
+| |    | |    / ____|
+| |    | |   | |
+| |____| |___| |____
+|______|_____|______|
 `
 
 func main() {
@@ -31,7 +22,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Printf("Hello %s! This is the Anubis programming language!\n", user.Username)
+	fmt.Printf("Hello %s! This is the llc programming language!\n", user.Username)
 	fmt.Printf("Feel free to type in commands\n")
 	fmt.Println(art)
 	repl.Start(os.Stdin, os.Stdout)

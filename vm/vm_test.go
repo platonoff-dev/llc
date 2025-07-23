@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"anubis/ast"
-	"anubis/compiler"
-	"anubis/lexer"
-	"anubis/object"
-	"anubis/parser"
+	"llc/ast"
+	"llc/compiler"
+	"llc/lexer"
+	"llc/object"
+	"llc/parser"
 )
 
 func TestIntegerArithmetic(t *testing.T) {
