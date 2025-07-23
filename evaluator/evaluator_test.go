@@ -101,13 +101,13 @@ func TestIfElseExpression(t *testing.T) {
 		expected interface{}
 		input    string
 	}{
-		{"if (true) { 10 }", 10},
-		{"if (false) { 10 }", nil},
-		{"if (1) { 10 }", 10},
-		{"if (1 < 2) { 10 }", 10},
-		{"if (1 > 2) { 10 }", nil},
-		{"if (1 > 2) { 10 } else { 20 }", 20},
-		{"if (1 < 2) { 10 } else { 20 }", 10},
+		{input: "if (true) { 10 }", expected: 10},
+		{input: "if (false) { 10 }", expected: nil},
+		{input: "if (1) { 10 }", expected: 10},
+		{input: "if (1 < 2) { 10 }", expected: 10},
+		{input: "if (1 > 2) { 10 }", expected: nil},
+		{input: "if (1 > 2) { 10 } else { 20 }", expected: 20},
+		{input: "if (1 < 2) { 10 } else { 20 }", expected: 10},
 	}
 
 	for i, tt := range tests {
@@ -360,11 +360,11 @@ func TestLenBuiltin(t *testing.T) {
 		expected interface{}
 		input    string
 	}{
-		{`len("")`, 0},
-		{`len("four")`, 4},
-		{`len("hello world")`, 11},
-		{`len(1)`, "argument to `len` not supported, got INTEGER"},
-		{`len("one", "two")`, "wrong number of arguments. got=2, want=1"},
+		{input: `len("")`, expected: 0},
+		{input: `len("four")`, expected: 4},
+		{input: `len("hello world")`, expected: 11},
+		{input: `len(1)`, expected: "argument to `len` not supported, got INTEGER"},
+		{input: `len("one", "two")`, expected: "wrong number of arguments. got=2, want=1"},
 	}
 
 	for i, tt := range tests {
@@ -412,16 +412,16 @@ func TestArrayIndexExpression(t *testing.T) {
 		expected interface{}
 		input    string
 	}{
-		{"[1, 2, 3][0]", 1},
-		{"[1, 2, 3][1]", 2},
-		{"[1, 2, 3][2]", 3},
-		{"let i = 0; [1][i]", 1},
-		{"[1, 2, 3][1 + 1]", 3},
-		{"let myArray = [1, 2, 3]; myArray[2];", 3},
-		{"let myArray = [1, 2, 3]; myArray[0] + myArray[1] + myArray[2];", 6},
-		{"let myArray = [1, 2, 3]; let i = myArray[0]; myArray[i]", 2},
-		{"[1, 2, 3][3]", nil},
-		{"[1, 2, 3][-1]", nil},
+		{input: "[1, 2, 3][0]", expected: 1},
+		{input: "[1, 2, 3][1]", expected: 2},
+		{input: "[1, 2, 3][2]", expected: 3},
+		{input: "let i = 0; [1][i]", expected: 1},
+		{input: "[1, 2, 3][1 + 1]", expected: 3},
+		{input: "let myArray = [1, 2, 3]; myArray[2];", expected: 3},
+		{input: "let myArray = [1, 2, 3]; myArray[0] + myArray[1] + myArray[2];", expected: 6},
+		{input: "let myArray = [1, 2, 3]; let i = myArray[0]; myArray[i]", expected: 2},
+		{input: "[1, 2, 3][3]", expected: nil},
+		{input: "[1, 2, 3][-1]", expected: nil},
 	}
 
 	for i, tt := range tests {
@@ -486,32 +486,32 @@ func TestHashIndexExpressions(t *testing.T) {
 		input    string
 	}{
 		{
-			`{"foo": 5}["foo"]`,
-			5,
+			input:    `{"foo": 5}["foo"]`,
+			expected: 5,
 		},
 		{
-			`{"foo": 5}["bar"]`,
-			nil,
+			input:    `{"foo": 5}["bar"]`,
+			expected: nil,
 		},
 		{
-			`let key = "foo"; {"foo": 5}[key]`,
-			5,
+			input:    `let key = "foo"; {"foo": 5}[key]`,
+			expected: 5,
 		},
 		{
-			`{}["foo"]`,
-			nil,
+			input:    `{}["foo"]`,
+			expected: nil,
 		},
 		{
-			`{5: 5}[5]`,
-			5,
+			input:    `{5: 5}[5]`,
+			expected: 5,
 		},
 		{
-			`{true: 5}[true]`,
-			5,
+			input:    `{true: 5}[true]`,
+			expected: 5,
 		},
 		{
-			`{false: 5}[false]`,
-			5,
+			input:    `{false: 5}[false]`,
+			expected: 5,
 		},
 	}
 

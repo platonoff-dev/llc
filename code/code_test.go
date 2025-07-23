@@ -11,8 +11,16 @@ func TestMake(t *testing.T) {
 		expected []byte
 		op       Opcode
 	}{
-		{OpConstant, []int{65534}, []byte{byte(OpConstant), 255, 254}},
-		{OpAdd, []int{}, []byte{byte(OpAdd)}},
+		{
+			op:       OpConstant,
+			operands: []int{65534},
+			expected: []byte{byte(OpConstant), 255, 254},
+		},
+		{
+			op:       OpAdd,
+			operands: []int{},
+			expected: []byte{byte(OpAdd)},
+		},
 	}
 
 	for i, tt := range tests {
@@ -60,7 +68,11 @@ func TestReadOperands(t *testing.T) {
 		bytesRead int
 		op        Opcode
 	}{
-		{OpConstant, []int{65535}, 2},
+		{
+			op:        OpConstant,
+			operands:  []int{65535},
+			bytesRead: 2,
+		},
 	}
 
 	for i, tt := range tests {

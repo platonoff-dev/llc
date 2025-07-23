@@ -14,9 +14,9 @@ func TestLetStatements(t *testing.T) {
 		input              string
 		expectedIdentifier string
 	}{
-		{"let x = 5;", "x", 5},
-		{"let y = true;", "y", true},
-		{"let foobar = y;", "foobar", "y"},
+		{input: "let x = 5;", expectedIdentifier: "x", expectedValue: 5},
+		{input: "let y = true;", expectedIdentifier: "y", expectedValue: true},
+		{input: "let foobar = y;", expectedIdentifier: "foobar", expectedValue: "y"},
 	}
 
 	for i, tt := range tests {
@@ -142,10 +142,10 @@ func TestParsingPrefixExpressions(t *testing.T) {
 		input    string
 		operator string
 	}{
-		{"!5", "!", 5},
-		{"-15", "-", 15},
-		{"!true", "!", true},
-		{"!false", "!", false},
+		{input: "!5", operator: "!", value: 5},
+		{input: "-15", operator: "-", value: 15},
+		{input: "!true", operator: "!", value: true},
+		{input: "!false", operator: "!", value: false},
 	}
 
 	for i, tt := range prefixTests {
@@ -188,17 +188,17 @@ func TestParsingInfixExpressions(t *testing.T) {
 		input      string
 		operator   string
 	}{
-		{"5 + 5", "+", 5, 5},
-		{"5 - 5", "-", 5, 5},
-		{"5 * 5", "*", 5, 5},
-		{"5 / 5", "/", 5, 5},
-		{"5 > 5", ">", 5, 5},
-		{"5 < 5", "<", 5, 5},
-		{"5 == 5", "==", 5, 5},
-		{"5 != 5", "!=", 5, 5},
-		{"true == true", "==", true, true},
-		{"true != false", "!=", true, false},
-		{"false == false", "==", false, false},
+		{input: "5 + 5", operator: "+", leftValue: 5, rightValue: 5},
+		{input: "5 - 5", operator: "-", leftValue: 5, rightValue: 5},
+		{input: "5 * 5", operator: "*", leftValue: 5, rightValue: 5},
+		{input: "5 / 5", operator: "/", leftValue: 5, rightValue: 5},
+		{input: "5 > 5", operator: ">", leftValue: 5, rightValue: 5},
+		{input: "5 < 5", operator: "<", leftValue: 5, rightValue: 5},
+		{input: "5 == 5", operator: "==", leftValue: 5, rightValue: 5},
+		{input: "5 != 5", operator: "!=", leftValue: 5, rightValue: 5},
+		{input: "true == true", operator: "==", leftValue: true, rightValue: true},
+		{input: "true != false", operator: "!=", leftValue: true, rightValue: false},
+		{input: "false == false", operator: "==", leftValue: false, rightValue: false},
 	}
 
 	for i, tt := range infixTests {
