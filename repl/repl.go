@@ -1,13 +1,14 @@
 package repl
 
 import (
+	"bufio"
+	"fmt"
+	"io"
+
 	"anubis/compiler"
 	"anubis/lexer"
 	"anubis/parser"
 	"anubis/vm"
-	"bufio"
-	"fmt"
-	"io"
 )
 
 const PROMPT = ">>>"

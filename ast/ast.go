@@ -1,9 +1,10 @@
 package ast
 
 import (
-	"anubis/token"
 	"bytes"
 	"strings"
+
+	"anubis/token"
 )
 
 type Node interface {
@@ -44,9 +45,9 @@ func (p *Program) String() string {
 }
 
 type LetStatement struct {
-	Token token.Token
-	Name  *Identifier
 	Value Expression
+	Name  *Identifier
+	Token token.Token
 }
 
 func (ls *LetStatement) statementNode()       {}
@@ -81,8 +82,8 @@ func (i *Identifier) String() string {
 }
 
 type ReturnStatement struct {
-	Token       token.Token
 	ReturnValue Expression
+	Token       token.Token
 }
 
 func (rs *ReturnStatement) statementNode()       {}
@@ -102,8 +103,8 @@ func (rs *ReturnStatement) String() string {
 }
 
 type ExpressionStatement struct {
-	Token      token.Token
 	Expression Expression
+	Token      token.Token
 }
 
 func (es *ExpressionStatement) statementNode()       {}
@@ -127,9 +128,9 @@ func (il *IntegerLiteral) TokenLiteral() string { return il.Token.Literal }
 func (il *IntegerLiteral) String() string       { return il.Token.Literal }
 
 type PrefixExpression struct {
+	Right    Expression
 	Token    token.Token
 	Operator string
-	Right    Expression
 }
 
 func (pe *PrefixExpression) expressionNode()      {}
@@ -146,10 +147,10 @@ func (pe *PrefixExpression) String() string {
 }
 
 type InfixExpression struct {
-	Token    token.Token
 	Left     Expression
-	Operator string
 	Right    Expression
+	Token    token.Token
+	Operator string
 }
 
 func (oe *InfixExpression) expressionNode()      {}
@@ -176,10 +177,10 @@ func (b *Boolean) TokenLiteral() string { return b.Token.Literal }
 func (b *Boolean) String() string       { return b.Token.Literal }
 
 type IfExpression struct {
-	Token       token.Token
 	Condition   Expression
 	Consequence *BlockStatement
 	Alternative *BlockStatement
+	Token       token.Token
 }
 
 func (ie *IfExpression) expressionNode()      {}
@@ -220,9 +221,9 @@ func (bs *BlockStatement) String() string {
 }
 
 type FunctionLiteral struct {
+	Body       *BlockStatement
 	Token      token.Token
 	Parameters []*Identifier
-	Body       *BlockStatement
 }
 
 func (fl *FunctionLiteral) expressionNode()      {}
@@ -300,9 +301,9 @@ func (al *ArrayLiteral) String() string {
 }
 
 type IndexExpression struct {
-	Token token.Token
 	Left  Expression
 	Index Expression
+	Token token.Token
 }
 
 func (ie *IndexExpression) expressionNode()      {}
@@ -320,8 +321,8 @@ func (ie *IndexExpression) String() string {
 }
 
 type HashLiteral struct {
-	Token token.Token
 	Pairs map[Expression]Expression
+	Token token.Token
 }
 
 func (hl *HashLiteral) expressionNode()      {}

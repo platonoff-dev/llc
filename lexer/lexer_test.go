@@ -1,8 +1,9 @@
 package lexer
 
 import (
-	"anubis/token"
 	"testing"
+
+	"anubis/token"
 )
 
 func TestNextToken(t *testing.T) {

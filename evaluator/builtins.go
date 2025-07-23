@@ -1,8 +1,9 @@
 package evaluator
 
 import (
-	"anubis/object"
 	"fmt"
+
+	"anubis/object"
 )
 
 var builtins = map[string]*object.Builtin{
@@ -91,7 +92,6 @@ var builtins = map[string]*object.Builtin{
 			copy(newElements, arr.Elements)
 			newElements[length] = args[1]
 			return &object.Array{Elements: newElements}
-
 		},
 	},
 	"print": {

@@ -1,10 +1,11 @@
 package main
 
 import (
-	"anubis/repl"
 	"fmt"
 	"os"
 	"os/user"
+
+	"anubis/repl"
 )
 
 var art = `

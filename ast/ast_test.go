@@ -1,8 +1,9 @@
 package ast
 
 import (
-	"anubis/token"
 	"testing"
+
+	"anubis/token"
 )
 
 func TestString(t *testing.T) {

@@ -1,11 +1,12 @@
 package evaluator
 
 import (
+	"fmt"
+	"testing"
+
 	"anubis/lexer"
 	"anubis/object"
 	"anubis/parser"
-	"fmt"
-	"testing"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {
@@ -97,8 +98,8 @@ func TestBangOperator(t *testing.T) {
 
 func TestIfElseExpression(t *testing.T) {
 	tests := []struct {
-		input    string
 		expected interface{}
+		input    string
 	}{
 		{"if (true) { 10 }", 10},
 		{"if (false) { 10 }", nil},
@@ -356,8 +357,8 @@ func TestStringConcatenation(t *testing.T) {
 
 func TestLenBuiltin(t *testing.T) {
 	tests := []struct {
-		input    string
 		expected interface{}
+		input    string
 	}{
 		{`len("")`, 0},
 		{`len("four")`, 4},
@@ -408,8 +409,8 @@ func TestArrayLiteral(t *testing.T) {
 
 func TestArrayIndexExpression(t *testing.T) {
 	tests := []struct {
-		input    string
 		expected interface{}
+		input    string
 	}{
 		{"[1, 2, 3][0]", 1},
 		{"[1, 2, 3][1]", 2},
@@ -481,8 +482,8 @@ func TestHashLiterals(t *testing.T) {
 
 func TestHashIndexExpressions(t *testing.T) {
 	tests := []struct {
-		input    string
 		expected interface{}
+		input    string
 	}{
 		{
 			`{"foo": 5}["foo"]`,

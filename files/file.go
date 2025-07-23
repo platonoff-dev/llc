@@ -1,12 +1,13 @@
 package files
 
 import (
+	"fmt"
+	"os"
+
 	"anubis/evaluator"
 	"anubis/lexer"
 	"anubis/object"
 	"anubis/parser"
-	"fmt"
-	"os"
 )
 
 func ReadStd() (*object.Environment, error) {

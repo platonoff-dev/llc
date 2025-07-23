@@ -11,12 +11,12 @@ const (
 	ILLEGAL = "ILLEGAL"
 	EOF     = "EOF"
 
-	// Identifiers + literals
+	// Identifiers + literals.
 	IDENT  = "IDENT"  // add, foobar, x, y, ...
 	INT    = "INT"    // 1343456
 	STRING = "STRING" // "<unicode symbols>"
 
-	// Operators
+	// Operators.
 	ASSIGN   = "="
 	PLUS     = "+"
 	MINUS    = "-"
@@ -26,7 +26,7 @@ const (
 	LT       = "<"
 	GT       = ">"
 
-	// Delimiters
+	// Delimiters.
 	COMMA     = ","
 	SEMICOLON = ";"
 	COLON     = ":"
@@ -37,7 +37,7 @@ const (
 	LBRACKET  = "["
 	RBRACKET  = "]"
 
-	// Keywords
+	// Keywords.
 	FUNCTION = "FUNCTION"
 	LET      = "LET"
 	TRUE     = "TRUE"

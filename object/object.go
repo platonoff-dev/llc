@@ -1,11 +1,12 @@
 package object
 
 import (
-	"anubis/ast"
 	"bytes"
 	"fmt"
 	"hash/fnv"
 	"strings"
+
+	"anubis/ast"
 )
 
 type ObjectType string
@@ -106,9 +107,9 @@ func (e *Error) Type() ObjectType { return ERROR_OBJ }
 func (e *Error) Inspect() string  { return "Error: " + e.Message }
 
 type Function struct {
-	Parameters []*ast.Identifier
 	Body       *ast.BlockStatement
 	Env        *Environment
+	Parameters []*ast.Identifier
 }
 
 func (f *Function) Type() ObjectType { return FUNCTION_OBJ }
@@ -138,6 +139,7 @@ func (s *String) Type() ObjectType { return STRING_OBJ }
 func (s *String) Inspect() string {
 	return s.Value
 }
+
 func (s *String) HashKey() HashKey {
 	hash := fnv.New64a()
 	hash.Write([]byte(s.Value))

@@ -1,10 +1,11 @@
 package compiler
 
 import (
+	"fmt"
+
 	"anubis/ast"
 	"anubis/code"
 	"anubis/object"
-	"fmt"
 )
 
 type Compiler struct {

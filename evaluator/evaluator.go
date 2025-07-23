@@ -1,9 +1,10 @@
 package evaluator
 
 import (
+	"fmt"
+
 	"anubis/ast"
 	"anubis/object"
-	"fmt"
 )
 
 var (
@@ -176,7 +177,6 @@ func applyFunction(fn object.Object, args []object.Object) object.Object {
 		return fn.Function(args...)
 	default:
 		return newError("not a function: %s", fn.Type())
-
 	}
 }
 
@@ -236,7 +236,7 @@ func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object
 		return builtin
 	}
 
-	return newError("identifier not found: " + node.Value)
+	return newError("%s", "identifier not found: "+node.Value)
 }
 
 func isTruthy(obj object.Object) bool {

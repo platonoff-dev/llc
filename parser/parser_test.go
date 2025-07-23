@@ -1,17 +1,18 @@
 package parser
 
 import (
-	"anubis/ast"
-	"anubis/lexer"
 	"fmt"
 	"testing"
+
+	"anubis/ast"
+	"anubis/lexer"
 )
 
 func TestLetStatements(t *testing.T) {
 	tests := []struct {
+		expectedValue      interface{}
 		input              string
 		expectedIdentifier string
-		expectedValue      interface{}
 	}{
 		{"let x = 5;", "x", 5},
 		{"let y = true;", "y", true},
@@ -137,9 +138,9 @@ func TestIntegerLiteralExpression(t *testing.T) {
 
 func TestParsingPrefixExpressions(t *testing.T) {
 	prefixTests := []struct {
+		value    interface{}
 		input    string
 		operator string
-		value    interface{}
 	}{
 		{"!5", "!", 5},
 		{"-15", "-", 15},
@@ -182,10 +183,10 @@ func TestParsingPrefixExpressions(t *testing.T) {
 
 func TestParsingInfixExpressions(t *testing.T) {
 	infixTests := []struct {
-		input      string
-		operator   string
 		leftValue  interface{}
 		rightValue interface{}
+		input      string
+		operator   string
 	}{
 		{"5 + 5", "+", 5, 5},
 		{"5 - 5", "-", 5, 5},

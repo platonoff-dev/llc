@@ -1,11 +1,12 @@
 package parser
 
 import (
+	"fmt"
+	"strconv"
+
 	"anubis/ast"
 	"anubis/lexer"
 	"anubis/token"
-	"fmt"
-	"strconv"
 )
 
 const (
@@ -34,15 +35,12 @@ var precedences = map[token.TokenType]int{
 }
 
 type Parser struct {
-	l *lexer.Lexer
-
-	curToken  token.Token
-	peekToken token.Token
-
-	errors []string
-
+	l              *lexer.Lexer
 	prefixParseFns map[token.TokenType]prefixParseFn
 	infixParseFns  map[token.TokenType]infixParseFn
+	curToken       token.Token
+	peekToken      token.Token
+	errors         []string
 }
 
 func New(l *lexer.Lexer) *Parser {
@@ -223,7 +221,6 @@ func (p *Parser) parseExpressionList(end token.TokenType) []ast.Expression {
 }
 
 func (p *Parser) parseIndexExpression(left ast.Expression) ast.Expression {
-
 	exp := &ast.IndexExpression{Token: p.curToken, Left: left}
 	p.nextToken()
 

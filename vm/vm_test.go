@@ -1,13 +1,14 @@
 package vm
 
 import (
+	"fmt"
+	"testing"
+
 	"anubis/ast"
 	"anubis/compiler"
 	"anubis/lexer"
 	"anubis/object"
 	"anubis/parser"
-	"fmt"
-	"testing"
 )
 
 func TestIntegerArithmetic(t *testing.T) {
@@ -84,8 +85,8 @@ func testIntegerObject(expected int64, actual object.Object) error {
 }
 
 type vmTestCase struct {
-	input    string
 	expected interface{}
+	input    string
 }
 
 func runVmTests(t *testing.T, tests []vmTestCase) {

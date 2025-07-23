@@ -6,8 +6,10 @@ import (
 	"fmt"
 )
 
-type Instructions []byte
-type Opcode byte
+type (
+	Instructions []byte
+	Opcode       byte
+)
 
 const (
 	OpConstant Opcode = iota

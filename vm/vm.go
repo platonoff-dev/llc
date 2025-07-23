@@ -1,16 +1,19 @@
 package vm
 
 import (
+	"fmt"
+
 	"anubis/code"
 	"anubis/compiler"
 	"anubis/object"
-	"fmt"
 )
 
 const StackSize = 2048
 
-var True = &object.Boolean{Value: true}
-var False = &object.Boolean{Value: false}
+var (
+	True  = &object.Boolean{Value: true}
+	False = &object.Boolean{Value: false}
+)
 
 type VM struct {
 	constants    []object.Object
