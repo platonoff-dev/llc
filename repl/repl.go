@@ -46,19 +46,19 @@ func Start(in io.Reader, out io.Writer) {
 		comp := compiler.New()
 		err := comp.Compile(program)
 		if err != nil {
-			fmt.Fprintf(out, "Woops! Compilation failed:\n %s\n", err)
+			_, _ = fmt.Fprintf(out, "Woops! Compilation failed:\n %s\n", err)
 			continue
 		}
 
 		machine := vm.New(comp.Bytecode())
 		err = machine.Run()
 		if err != nil {
-			fmt.Fprintf(out, "Woops! Execution bytecode failed:\n %s\n", err)
+			_, _ = fmt.Fprintf(out, "Woops! Execution bytecode failed:\n %s\n", err)
 		}
 
 		stackTop := machine.LastPoppedStackElem()
-		io.WriteString(out, stackTop.Inspect())
-		io.WriteString(out, "\n")
+		_, _ = io.WriteString(out, stackTop.Inspect())
+		_, _ = io.WriteString(out, "\n")
 	}
 }
 

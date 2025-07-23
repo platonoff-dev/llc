@@ -124,7 +124,7 @@ func testExpectedObject(t *testing.T, expected interface{}, actual object.Object
 			t.Errorf("testIntegerObject failed: %s", err)
 		}
 	case bool:
-		err := testBooleanObject(bool(expected), actual)
+		err := testBooleanObject(expected, actual)
 		if err != nil {
 			t.Errorf("testBooleanObject failed: %s", err)
 		}

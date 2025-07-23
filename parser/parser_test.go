@@ -37,8 +37,8 @@ func TestLetStatements(t *testing.T) {
 				return
 			}
 
-			val := stmt.(*ast.LetStatement).Value
-			if !testLiteralExpression(t, val, tt.expectedValue) {
+			letStmt, _ := stmt.(*ast.LetStatement)
+			if !testLiteralExpression(t, letStmt.Value, tt.expectedValue) {
 				return
 			}
 		})
@@ -438,8 +438,8 @@ func TestFunctionParametersParsing(t *testing.T) {
 			program := p.ParseProgram()
 			checkParserErrors(t, p)
 
-			stmt := program.Statements[0].(*ast.ExpressionStatement)
-			function := stmt.Expression.(*ast.FunctionLiteral)
+			stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
+			function, _ := stmt.Expression.(*ast.FunctionLiteral)
 
 			if len(function.Parameters) != len(tt.expectedParams) {
 				t.Errorf("length parameters wrong. want %d, got=%d", len(tt.expectedParams), len(function.Parameters))
@@ -491,7 +491,7 @@ func TestStringLiteral(t *testing.T) {
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
 
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	literal, ok := stmt.Expression.(*ast.StringLiteral)
 	if !ok {
 		t.Fatalf("exp not *ast.StringLiteral. got=%T", literal)
@@ -564,7 +564,7 @@ func TestParsingHashLiteralStringKeys(t *testing.T) {
 
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	hash, ok := stmt.Expression.(*ast.HashLiteral)
 	if !ok {
 		t.Fatalf("exp is not ast.HashLiteral. got=%T", stmt.Expression)
@@ -597,7 +597,7 @@ func TestParsingHashLiteralIntegerKeys(t *testing.T) {
 
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	hash, ok := stmt.Expression.(*ast.HashLiteral)
 	if !ok {
 		t.Fatalf("exp is not ast.HashLiteral. got=%T", stmt.Expression)
@@ -630,7 +630,7 @@ func TestParsingHashLiteralBooleanKeys(t *testing.T) {
 
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	hash, ok := stmt.Expression.(*ast.HashLiteral)
 	if !ok {
 		t.Fatalf("exp is not ast.HashLiteral. got=%T", stmt.Expression)
@@ -661,7 +661,7 @@ func TestParsingHashLiteralExpressions(t *testing.T) {
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
 
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	hash, ok := stmt.Expression.(*ast.HashLiteral)
 	if !ok {
 		t.Fatalf("exp is not ast.HashLiteral. got=%T", stmt.Expression)
@@ -705,7 +705,7 @@ func TestParsingEmptyHashLiteral(t *testing.T) {
 
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	stmt, _ := program.Statements[0].(*ast.ExpressionStatement)
 	hash, ok := stmt.Expression.(*ast.HashLiteral)
 	if !ok {
 		t.Fatalf("exp is not ast.HashLiteral. got=%T", stmt.Expression)
@@ -717,6 +717,8 @@ func TestParsingEmptyHashLiteral(t *testing.T) {
 }
 
 func checkParserErrors(t *testing.T, p *Parser) {
+	t.Helper()
+
 	errors := p.Errors()
 	if len(errors) == 0 {
 		return
@@ -730,6 +732,8 @@ func checkParserErrors(t *testing.T, p *Parser) {
 }
 
 func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
+	t.Helper()
+
 	if s.TokenLiteral() != "let" {
 		t.Errorf("s.TokenLiteral not 'let'. got=%q", s.TokenLiteral())
 		return false
@@ -755,6 +759,8 @@ func testLetStatement(t *testing.T, s ast.Statement, name string) bool {
 }
 
 func testIdentifier(t *testing.T, exp ast.Expression, value string) bool {
+	t.Helper()
+
 	ident, ok := exp.(*ast.Identifier)
 	if !ok {
 		t.Errorf("exp not *ast.Identifier. got=%T", exp)
@@ -775,6 +781,8 @@ func testIdentifier(t *testing.T, exp ast.Expression, value string) bool {
 }
 
 func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{}) bool {
+	t.Helper()
+
 	switch v := expected.(type) {
 	case int:
 		return testIntegerLiteral(t, exp, int64(v))
@@ -790,6 +798,8 @@ func testLiteralExpression(t *testing.T, exp ast.Expression, expected interface{
 }
 
 func testBooleanLiteral(t *testing.T, exp ast.Expression, value bool) bool {
+	t.Helper()
+
 	bo, ok := exp.(*ast.Boolean)
 	if !ok {
 		t.Errorf("exp not *ast.Boolean. got=%T", exp)
@@ -810,6 +820,8 @@ func testBooleanLiteral(t *testing.T, exp ast.Expression, value bool) bool {
 }
 
 func testInfixExpression(t *testing.T, exp ast.Expression, left interface{}, operator string, right interface{}) bool {
+	t.Helper()
+
 	opExp, ok := exp.(*ast.InfixExpression)
 	if !ok {
 		t.Errorf("exp is not *ast.OperatorExpression. got=%T(%s)", exp, exp)
@@ -833,6 +845,8 @@ func testInfixExpression(t *testing.T, exp ast.Expression, left interface{}, ope
 }
 
 func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
+	t.Helper()
+
 	integ, ok := il.(*ast.IntegerLiteral)
 	if !ok {
 		t.Errorf("il not *ast.IntegerLiteral. got=%T", il)

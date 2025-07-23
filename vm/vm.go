@@ -41,7 +41,7 @@ func (vm *VM) StackTop() object.Object {
 	return vm.stack[vm.sp-1]
 }
 
-func (vm *VM) Run() error {
+func (vm *VM) Run() error { //nolint:gocognit,cyclop
 	for ip := 0; ip < len(vm.instructions); ip++ {
 		op := code.Opcode(vm.instructions[ip])
 		switch op {
@@ -118,7 +118,7 @@ func (vm *VM) executeBinaryOperation(op code.Opcode) error {
 	leftType := left.Type()
 	rightType := right.Type()
 
-	if leftType == object.INTEGER_OBJ && rightType == object.INTEGER_OBJ {
+	if leftType == object.IntegerObj && rightType == object.IntegerObj {
 		return vm.executeBinaryIntegerOperation(op, left, right)
 	}
 
@@ -126,8 +126,11 @@ func (vm *VM) executeBinaryOperation(op code.Opcode) error {
 }
 
 func (vm *VM) executeBinaryIntegerOperation(op code.Opcode, left, right object.Object) error {
-	leftValue := left.(*object.Integer).Value
-	rightValue := right.(*object.Integer).Value
+	leftObj, _ := left.(*object.Integer)
+	rightObj, _ := right.(*object.Integer)
+
+	leftValue := leftObj.Value
+	rightValue := rightObj.Value
 
 	var result int64
 	switch op {
@@ -143,7 +146,11 @@ func (vm *VM) executeBinaryIntegerOperation(op code.Opcode, left, right object.O
 		return fmt.Errorf("unknown integer operation: %d", op)
 	}
 
-	vm.push(&object.Integer{Value: result})
+	err := vm.push(&object.Integer{Value: result})
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -151,7 +158,7 @@ func (vm *VM) executeComparison(op code.Opcode) error {
 	right := vm.pop()
 	left := vm.pop()
 
-	if left.Type() == object.INTEGER_OBJ && right.Type() == object.INTEGER_OBJ {
+	if left.Type() == object.IntegerObj && right.Type() == object.IntegerObj {
 		return vm.executeIntegerComparison(op, left, right)
 	}
 
@@ -166,16 +173,16 @@ func (vm *VM) executeComparison(op code.Opcode) error {
 }
 
 func (vm *VM) executeIntegerComparison(op code.Opcode, left, right object.Object) error {
-	leftValue := left.(*object.Integer).Value
-	rightValue := right.(*object.Integer).Value
+	leftStmt, _ := left.(*object.Integer)
+	rightStmt, _ := right.(*object.Integer)
 
 	switch op {
 	case code.OpEqual:
-		return vm.push(nativeBoolToBooleanObject(rightValue == leftValue))
+		return vm.push(nativeBoolToBooleanObject(rightStmt.Value == leftStmt.Value))
 	case code.OpNotEqual:
-		return vm.push(nativeBoolToBooleanObject(rightValue != leftValue))
+		return vm.push(nativeBoolToBooleanObject(rightStmt.Value != leftStmt.Value))
 	case code.OpGreaterThan:
-		return vm.push(nativeBoolToBooleanObject(leftValue > rightValue))
+		return vm.push(nativeBoolToBooleanObject(leftStmt.Value > rightStmt.Value))
 	default:
 		return fmt.Errorf("unknown operator: %d", op)
 	}
@@ -197,12 +204,12 @@ func (vm *VM) executeBangOperator() error {
 func (vm *VM) executeMinusOperator() error {
 	operand := vm.pop()
 
-	if operand.Type() != object.INTEGER_OBJ {
+	if operand.Type() != object.IntegerObj {
 		return fmt.Errorf("unsupported type for negation: %s", operand.Type())
 	}
 
-	value := operand.(*object.Integer).Value
-	return vm.push(&object.Integer{Value: -value})
+	value, _ := operand.(*object.Integer)
+	return vm.push(&object.Integer{Value: -value.Value})
 }
 
 func nativeBoolToBooleanObject(input bool) *object.Boolean {

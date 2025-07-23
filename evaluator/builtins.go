@@ -83,10 +83,10 @@ var builtins = map[string]*object.Builtin{
 				return newError("wrong number of arguments. got=%d, want=%d", len(args), 1)
 			}
 
-			if args[0].Type() != object.ARRAY_OBJ {
+			if args[0].Type() != object.ArrayObj {
 				return newError("argument to `push` must be ARRAY, got %s", args[0].Type())
 			}
-			arr := args[0].(*object.Array)
+			arr, _ := args[0].(*object.Array)
 			length := len(arr.Elements)
 			newElements := make([]object.Object, length+1)
 			copy(newElements, arr.Elements)

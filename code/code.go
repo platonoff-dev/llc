@@ -94,7 +94,7 @@ func Lookup(op byte) (*Definition, error) {
 }
 
 func Make(op Opcode, operands ...int) []byte {
-	def, ok := definitions[Opcode(op)]
+	def, ok := definitions[op]
 	if !ok {
 		return []byte{}
 	}
@@ -110,9 +110,9 @@ func Make(op Opcode, operands ...int) []byte {
 	offset := 1
 	for i, o := range operands {
 		width := def.OperandWidths[i]
-		switch width {
+		switch width { //nolint: gocritic
 		case 2:
-			binary.BigEndian.PutUint16(instruction[offset:], uint16(o))
+			binary.BigEndian.PutUint16(instruction[offset:], uint16(o)) //nolint:gosec
 		}
 		offset += width
 	}
@@ -125,7 +125,7 @@ func ReadOperands(def *Definition, ins Instructions) ([]int, int) {
 	offset := 0
 
 	for i, width := range def.OperandWidths {
-		switch width {
+		switch width { //nolint: gocritic
 		case 2:
 			operands[i] = int(ReadUint16(ins[offset:]))
 		}

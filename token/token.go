@@ -1,68 +1,68 @@
 package token
 
-type TokenType = string
+type TypeTocken = string
 
 type Token struct {
-	Type    TokenType
+	Type    TypeTocken
 	Literal string
 }
 
 const (
-	ILLEGAL = "ILLEGAL"
+	Illegal = "ILLEGAL"
 	EOF     = "EOF"
 
 	// Identifiers + literals.
-	IDENT  = "IDENT"  // add, foobar, x, y, ...
-	INT    = "INT"    // 1343456
-	STRING = "STRING" // "<unicode symbols>"
+	Ident  = "IDENT"  // add, foobar, x, y, ...
+	Int    = "INT"    // 1343456
+	String = "STRING" // "<unicode symbols>"
 
 	// Operators.
-	ASSIGN   = "="
-	PLUS     = "+"
-	MINUS    = "-"
-	BANG     = "!"
-	ASTERISK = "*"
-	SLASH    = "/"
+	Assign   = "="
+	Plus     = "+"
+	Minus    = "-"
+	Bang     = "!"
+	Asterisk = "*"
+	Slash    = "/"
 	LT       = "<"
 	GT       = ">"
 
 	// Delimiters.
-	COMMA     = ","
-	SEMICOLON = ";"
-	COLON     = ":"
-	LPAREN    = "("
-	RPAREN    = ")"
-	LBRACE    = "{"
-	RBRACE    = "}"
-	LBRACKET  = "["
-	RBRACKET  = "]"
+	Comma     = ","
+	Semicolon = ";"
+	Colon     = ":"
+	LParen    = "("
+	RParen    = ")"
+	LBrace    = "{"
+	RBrace    = "}"
+	LBracket  = "["
+	RBracket  = "]"
 
 	// Keywords.
-	FUNCTION = "FUNCTION"
-	LET      = "LET"
-	TRUE     = "TRUE"
-	FALSE    = "FALSE"
-	IF       = "IF"
-	ELSE     = "ELSE"
-	RETURN   = "RETURN"
+	Function = "FUNCTION"
+	Let      = "LET"
+	True     = "TRUE"
+	False    = "FALSE"
+	If       = "IF"
+	Else     = "ELSE"
+	Return   = "RETURN"
 
-	EQ     = "=="
-	NOT_EQ = "!="
+	Eq    = "=="
+	NotEq = "!="
 )
 
-var keywords = map[string]TokenType{
-	"fn":     FUNCTION,
-	"let":    LET,
-	"true":   TRUE,
-	"false":  FALSE,
-	"if":     IF,
-	"else":   ELSE,
-	"return": RETURN,
+var keywords = map[string]TypeTocken{
+	"fn":     Function,
+	"let":    Let,
+	"true":   True,
+	"false":  False,
+	"if":     If,
+	"else":   Else,
+	"return": Return,
 }
 
-func LookupIndent(indent string) TokenType {
+func LookupIndent(indent string) TypeTocken {
 	if tok, ok := keywords[indent]; ok {
 		return tok
 	}
-	return IDENT
+	return Ident
 }

@@ -159,43 +159,38 @@ func testEval(input string) object.Object {
 	return Eval(program, env)
 }
 
-func testNullObject(t *testing.T, obj object.Object) bool {
+func testNullObject(t *testing.T, obj object.Object) {
+	t.Helper()
+
 	if obj != NULL {
 		t.Errorf("object is not null. got=%T (%+v)", obj, obj)
-		return false
 	}
-
-	return true
 }
 
-func testIntegerObject(t *testing.T, obj object.Object, expected int64) bool {
+func testIntegerObject(t *testing.T, obj object.Object, expected int64) {
+	t.Helper()
+
 	result, ok := obj.(*object.Integer)
 	if !ok {
 		t.Errorf("object is not Integer. got=%T, (%+v)", obj, obj)
-		return false
 	}
 
 	if result.Value != expected {
 		t.Errorf("object has wrong value. got=%d, want=%d", result.Value, expected)
-		return false
 	}
-
-	return true
 }
 
-func testBooleanObject(t *testing.T, obj object.Object, expected bool) bool {
+func testBooleanObject(t *testing.T, obj object.Object, expected bool) {
+	t.Helper()
+
 	result, ok := obj.(*object.Boolean)
 	if !ok {
 		t.Errorf("object is not Boolean. got=%T, (%+v)", obj, obj)
-		return false
 	}
 
 	if result.Value != expected {
 		t.Errorf("object has wrong value. got=%t, want=%t", result.Value, expected)
-		return false
 	}
-
-	return true
 }
 
 func TestErrorHandling(t *testing.T) {

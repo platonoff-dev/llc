@@ -242,9 +242,9 @@ func testConstants(expected []interface{}, actual []object.Object) error {
 	}
 
 	for i, constant := range expected {
-		switch constant := constant.(type) {
+		switch constant := constant.(type) { //nolint: gocritic
 		case int:
-			err := testIntegerObject(uint64(constant), actual[i])
+			err := testIntegerObject(uint64(constant), actual[i]) //nolint:gosec
 			if err != nil {
 				return fmt.Errorf("constant %d - testIntegerObject failed: %w", i, err)
 			}
@@ -260,7 +260,7 @@ func testIntegerObject(expected uint64, actual object.Object) error {
 		return fmt.Errorf("object is not Integer. got=%T, (%+v)", actual, actual)
 	}
 
-	if reuslt.Value != int64(expected) {
+	if reuslt.Value != int64(expected) { //nolint:gosec
 		return fmt.Errorf("object has wrong value. got=%d, want=%d", reuslt.Value, expected)
 	}
 

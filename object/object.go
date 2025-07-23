@@ -9,28 +9,28 @@ import (
 	"anubis/ast"
 )
 
-type ObjectType string
+type TypeObject string
 
 const (
-	INTEGER_OBJ      = "INTEGER"
-	BOOLEAN_OBJ      = "BOOLEAN"
-	NULL_OBJ         = "NULL"
-	RETURN_VALUE_OBJ = "RETURN_VALUE"
-	ERROR_OBJ        = "ERROR"
-	FUNCTION_OBJ     = "FUNCTION"
-	STRING_OBJ       = "STRING"
-	BUILTIN_OBJ      = "BUILTIN"
-	ARRAY_OBJ        = "ARRAY"
-	HASH_OBJ         = "HASH"
+	IntegerObj     = "INTEGER"
+	BooleanObj     = "BOOLEAN"
+	NullObj        = "NULL"
+	ReturnValueObj = "RETURN_VALUE"
+	ErrorObj       = "ERROR"
+	FunctionObj    = "FUNCTION"
+	StringObj      = "STRING"
+	BuiltinObj     = "BUILTIN"
+	ArrayObj       = "ARRAY"
+	HashObj        = "HASH"
 )
 
 type HashKey struct {
-	Type  ObjectType
+	Type  TypeObject
 	Value uint64
 }
 
 type Object interface {
-	Type() ObjectType
+	Type() TypeObject
 	Inspect() string
 }
 
@@ -61,21 +61,21 @@ func (h *Hash) Inspect() string {
 
 	return out.String()
 }
-func (h *Hash) Type() ObjectType { return HASH_OBJ }
+func (h *Hash) Type() TypeObject { return HashObj }
 
 type Integer struct {
 	Value int64
 }
 
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
-func (i *Integer) Type() ObjectType { return INTEGER_OBJ }
-func (i *Integer) HashKey() HashKey { return HashKey{Type: i.Type(), Value: uint64(i.Value)} }
+func (i *Integer) Type() TypeObject { return IntegerObj }
+func (i *Integer) HashKey() HashKey { return HashKey{Type: i.Type(), Value: uint64(i.Value)} } //nolint:gosec
 
 type Boolean struct {
 	Value bool
 }
 
-func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
+func (b *Boolean) Type() TypeObject { return BooleanObj }
 func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
 func (b *Boolean) HashKey() HashKey {
 	var value uint64
@@ -89,21 +89,21 @@ func (b *Boolean) HashKey() HashKey {
 
 type Null struct{}
 
-func (n *Null) Type() ObjectType { return NULL_OBJ }
+func (n *Null) Type() TypeObject { return NullObj }
 func (n *Null) Inspect() string  { return "null" }
 
 type ReturnValue struct {
 	Value Object
 }
 
-func (rv *ReturnValue) Type() ObjectType { return RETURN_VALUE_OBJ }
+func (rv *ReturnValue) Type() TypeObject { return ReturnValueObj }
 func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
 
 type Error struct {
 	Message string
 }
 
-func (e *Error) Type() ObjectType { return ERROR_OBJ }
+func (e *Error) Type() TypeObject { return ErrorObj }
 func (e *Error) Inspect() string  { return "Error: " + e.Message }
 
 type Function struct {
@@ -112,7 +112,7 @@ type Function struct {
 	Parameters []*ast.Identifier
 }
 
-func (f *Function) Type() ObjectType { return FUNCTION_OBJ }
+func (f *Function) Type() TypeObject { return FunctionObj }
 func (f *Function) Inspect() string {
 	var out bytes.Buffer
 
@@ -135,7 +135,7 @@ type String struct {
 	Value string
 }
 
-func (s *String) Type() ObjectType { return STRING_OBJ }
+func (s *String) Type() TypeObject { return StringObj }
 func (s *String) Inspect() string {
 	return s.Value
 }
@@ -152,14 +152,14 @@ type Builtin struct {
 	Function BuiltinFunction
 }
 
-func (s *Builtin) Type() ObjectType { return BUILTIN_OBJ }
+func (s *Builtin) Type() TypeObject { return BuiltinObj }
 func (s *Builtin) Inspect() string  { return "builtin function" }
 
 type Array struct {
 	Elements []Object
 }
 
-func (s *Array) Type() ObjectType { return ARRAY_OBJ }
+func (s *Array) Type() TypeObject { return ArrayObj }
 func (s *Array) Inspect() string {
 	var out bytes.Buffer
 
