@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"testing"
 
-	"llc/lexer"
-	"llc/object"
-	"llc/parser"
+	"llc/lang/lexer"
+	object2 "llc/lang/object"
+	"llc/lang/parser"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {
@@ -150,16 +150,16 @@ func TestReturnStatements(t *testing.T) {
 	}
 }
 
-func testEval(input string) object.Object {
+func testEval(input string) object2.Object {
 	l := lexer.New(input)
 	p := parser.New(l)
 	program := p.ParseProgram()
-	env := object.NewEnvironment()
+	env := object2.NewEnvironment()
 
 	return Eval(program, env)
 }
 
-func testNullObject(t *testing.T, obj object.Object) {
+func testNullObject(t *testing.T, obj object2.Object) {
 	t.Helper()
 
 	if obj != NULL {
@@ -167,10 +167,10 @@ func testNullObject(t *testing.T, obj object.Object) {
 	}
 }
 
-func testIntegerObject(t *testing.T, obj object.Object, expected int64) {
+func testIntegerObject(t *testing.T, obj object2.Object, expected int64) {
 	t.Helper()
 
-	result, ok := obj.(*object.Integer)
+	result, ok := obj.(*object2.Integer)
 	if !ok {
 		t.Errorf("object is not Integer. got=%T, (%+v)", obj, obj)
 	}
@@ -180,10 +180,10 @@ func testIntegerObject(t *testing.T, obj object.Object, expected int64) {
 	}
 }
 
-func testBooleanObject(t *testing.T, obj object.Object, expected bool) {
+func testBooleanObject(t *testing.T, obj object2.Object, expected bool) {
 	t.Helper()
 
-	result, ok := obj.(*object.Boolean)
+	result, ok := obj.(*object2.Boolean)
 	if !ok {
 		t.Errorf("object is not Boolean. got=%T, (%+v)", obj, obj)
 	}
@@ -249,7 +249,7 @@ func TestErrorHandling(t *testing.T) {
 		name := fmt.Sprintf("[%d]", i)
 		t.Run(name, func(t *testing.T) {
 			evaluated := testEval(tt.input)
-			errObj, ok := evaluated.(*object.Error)
+			errObj, ok := evaluated.(*object2.Error)
 			if !ok {
 				t.Errorf("no error object returned. got=%T (%+v)", evaluated, evaluated)
 				return
@@ -285,7 +285,7 @@ func TestFuncObject(t *testing.T) {
 	input := "fn(x) { x + 2; };"
 
 	evaluated := testEval(input)
-	fn, ok := evaluated.(*object.Function)
+	fn, ok := evaluated.(*object2.Function)
 	if !ok {
 		t.Fatalf("object is not Function. got=%T (%+v)", evaluated, evaluated)
 	}
@@ -326,7 +326,7 @@ func TestStringLiteral(t *testing.T) {
 	input := `"Hello World!"`
 
 	evaluated := testEval(input)
-	str, ok := evaluated.(*object.String)
+	str, ok := evaluated.(*object2.String)
 	if !ok {
 		t.Fatalf("evaluated is not *object.String. got=%T", evaluated)
 	}
@@ -340,7 +340,7 @@ func TestStringConcatenation(t *testing.T) {
 	input := `"Hello" + " " + "World!"`
 
 	evaluated := testEval(input)
-	str, ok := evaluated.(*object.String)
+	str, ok := evaluated.(*object2.String)
 	if !ok {
 		t.Fatalf("evaluated is not *object.String. got=%T", evaluated)
 	}
@@ -371,7 +371,7 @@ func TestLenBuiltin(t *testing.T) {
 			case int:
 				testIntegerObject(t, evaluated, int64(expected))
 			case string:
-				errObj, ok := evaluated.(*object.Error)
+				errObj, ok := evaluated.(*object2.Error)
 				if !ok {
 					t.Fatalf("expected is not *object.Error. got=%T (%+v)", expected, expected)
 				}
@@ -388,7 +388,7 @@ func TestArrayLiteral(t *testing.T) {
 	input := "[1, 2 * 2, 3 + 3]"
 
 	evaluated := testEval(input)
-	result, ok := evaluated.(*object.Array)
+	result, ok := evaluated.(*object2.Array)
 	if !ok {
 		t.Fatalf("object is not Array. got=%T (%+v)", evaluated, evaluated)
 	}
@@ -447,18 +447,18 @@ func TestHashLiterals(t *testing.T) {
 	`
 
 	evaluated := testEval(input)
-	result, ok := evaluated.(*object.Hash)
+	result, ok := evaluated.(*object2.Hash)
 	if !ok {
 		t.Fatalf("Eval didn't return Hash. got=%T (%+v)", evaluated, evaluated)
 	}
 
-	expected := map[object.HashKey]int64{
-		(&object.String{Value: "one"}).HashKey():   1,
-		(&object.String{Value: "two"}).HashKey():   2,
-		(&object.String{Value: "three"}).HashKey(): 3,
-		(&object.Integer{Value: 4}).HashKey():      4,
-		TRUE.HashKey():                             5,
-		FALSE.HashKey():                            6,
+	expected := map[object2.HashKey]int64{
+		(&object2.String{Value: "one"}).HashKey():   1,
+		(&object2.String{Value: "two"}).HashKey():   2,
+		(&object2.String{Value: "three"}).HashKey(): 3,
+		(&object2.Integer{Value: 4}).HashKey():      4,
+		TRUE.HashKey():                              5,
+		FALSE.HashKey():                             6,
 	}
 
 	if len(result.Pairs) != len(expected) {

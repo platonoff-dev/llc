@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strconv"
 
-	"llc/ast"
-	"llc/lexer"
-	"llc/token"
+	"llc/lang/ast"
+	"llc/lang/lexer"
+	"llc/lang/token"
 )
 
 const (

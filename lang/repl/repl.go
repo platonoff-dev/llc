@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"llc/compiler"
-	"llc/lexer"
-	"llc/parser"
-	"llc/vm"
+	"llc/lang/compiler"
+	"llc/lang/lexer"
+	"llc/lang/parser"
+	"llc/lang/vm"
 )
 
 const PROMPT = ">>>"

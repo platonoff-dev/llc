@@ -3,7 +3,7 @@ package evaluator
 import (
 	"fmt"
 
-	"llc/object"
+	"llc/lang/object"
 )
 
 var builtins = map[string]*object.Builtin{

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"llc/ast"
-	"llc/compiler"
-	"llc/lexer"
-	"llc/object"
-	"llc/parser"
+	"llc/lang/ast"
+	"llc/lang/compiler"
+	"llc/lang/lexer"
+	"llc/lang/object"
+	"llc/lang/parser"
 )
 
 func TestIntegerArithmetic(t *testing.T) {

@@ -4,20 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"llc/repl"
+	"llc/lang/cli"
 )
 
-var art = `
- _      _      _____
-| |    | |    / ____|
-| |    | |   | |
-| |____| |___| |____
-|______|_____|______|
-`
-
 func main() {
-	fmt.Printf("Hello! This is the llc programming language!\n")
-	fmt.Printf("Feel free to type in commands\n")
-	fmt.Println(art)
-	repl.Start(os.Stdin, os.Stdout)
+	if err := cli.RootCmd.Execute(); err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }

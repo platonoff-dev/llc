@@ -1,6 +1,8 @@
 package lexer
 
-import "llc/token"
+import (
+	"llc/lang/token"
+)
 
 type Lexer struct {
 	input        []rune

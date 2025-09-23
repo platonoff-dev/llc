@@ -3,9 +3,9 @@ package compiler
 import (
 	"fmt"
 
-	"llc/ast"
-	"llc/code"
-	"llc/object"
+	"llc/lang/ast"
+	"llc/lang/code"
+	"llc/lang/object"
 )
 
 type Compiler struct {

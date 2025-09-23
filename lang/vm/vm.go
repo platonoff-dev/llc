@@ -3,9 +3,9 @@ package vm
 import (
 	"fmt"
 
-	"llc/code"
-	"llc/compiler"
-	"llc/object"
+	"llc/lang/code"
+	"llc/lang/compiler"
+	"llc/lang/object"
 )
 
 const StackSize = 2048

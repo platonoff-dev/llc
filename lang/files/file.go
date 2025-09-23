@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
-	"llc/evaluator"
-	"llc/lexer"
-	"llc/object"
-	"llc/parser"
+	"llc/lang/evaluator"
+	"llc/lang/lexer"
+	"llc/lang/object"
+	"llc/lang/parser"
 )
 
 func ReadStd() (*object.Environment, error) {

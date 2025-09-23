@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"testing"
 
-	"llc/ast"
-	"llc/code"
-	"llc/lexer"
-	"llc/object"
-	"llc/parser"
+	"llc/lang/ast"
+	"llc/lang/code"
+	"llc/lang/lexer"
+	"llc/lang/object"
+	"llc/lang/parser"
 )
 
 type compilerTestCase struct {
