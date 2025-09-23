@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"os/user"
 
 	"llc/repl"
 )
@@ -17,12 +16,7 @@ var art = `
 `
 
 func main() {
-	user, err := user.Current()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Hello %s! This is the llc programming language!\n", user.Username)
+	fmt.Printf("Hello! This is the llc programming language!\n")
 	fmt.Printf("Feel free to type in commands\n")
 	fmt.Println(art)
 	repl.Start(os.Stdin, os.Stdout)
