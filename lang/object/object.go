@@ -22,6 +22,7 @@ const (
 	BuiltinObj     = "BUILTIN"
 	ArrayObj       = "ARRAY"
 	HashObj        = "HASH"
+	QuoteObj       = "QUOTE_OBJ"
 )
 
 type HashKey struct {
@@ -114,21 +115,12 @@ type Function struct {
 
 func (f *Function) Type() TypeObject { return FunctionObj }
 func (f *Function) Inspect() string {
-	var out bytes.Buffer
-
-	params := []string{}
-	for _, p := range f.Parameters {
-		params = append(params, p.String())
+	params := make([]string, len(f.Parameters))
+	for i, p := range f.Parameters {
+		params[i] = p.String()
 	}
 
-	out.WriteString("fn")
-	out.WriteString("(")
-	out.WriteString(strings.Join(params, ", "))
-	out.WriteString(") {\n")
-	out.WriteString(f.Body.String())
-	out.WriteString("\n}")
-
-	return out.String()
+	return fmt.Sprintf("fn(%s) {\n%s\n}", strings.Join(params, ", "), f.Body.String())
 }
 
 type String struct {
@@ -173,4 +165,13 @@ func (s *Array) Inspect() string {
 	out.WriteString("]")
 
 	return out.String()
+}
+
+type Quote struct {
+	Node ast.Node
+}
+
+func (q *Quote) Type() TypeObject { return QuoteObj }
+func (q *Quote) Inspect() string {
+	return fmt.Sprintf("QUOTE(%s)", q.Node.String())
 }
