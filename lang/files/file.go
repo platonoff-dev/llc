@@ -13,7 +13,7 @@ import (
 func ReadStd() (*object.Environment, error) {
 	folder := "std"
 	files := []string{
-		"array.an",
+		"array.llc",
 	}
 	env := object.NewEnvironment()
 
@@ -38,7 +38,7 @@ func ReadFile(path string, env *object.Environment) (*object.Environment, error)
 	p := parser.New(l)
 	program := p.ParseProgram()
 	if len(p.Errors()) != 0 {
-		return nil, fmt.Errorf("error hapend during parsing of %s. errors=%v", path, p.Errors())
+		return nil, fmt.Errorf("error happened during parsing of %s. errors=%v", path, p.Errors())
 	}
 
 	_ = evaluator.Eval(program, env)
