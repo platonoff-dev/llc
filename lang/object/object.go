@@ -23,6 +23,7 @@ const (
 	ArrayObj       = "ARRAY"
 	HashObj        = "HASH"
 	QuoteObj       = "QUOTE_OBJ"
+	MacroObj       = "MACRO"
 )
 
 type HashKey struct {
@@ -174,4 +175,24 @@ type Quote struct {
 func (q *Quote) Type() TypeObject { return QuoteObj }
 func (q *Quote) Inspect() string {
 	return fmt.Sprintf("QUOTE(%s)", q.Node.String())
+}
+
+type Macro struct {
+	Body       *ast.BlockStatement
+	Env        *Environment
+	Parameters []*ast.Identifier
+}
+
+func (m *Macro) Type() TypeObject { return MacroObj }
+func (m *Macro) Inspect() string {
+	params := []string{}
+	for _, p := range m.Parameters {
+		params = append(params, p.String())
+	}
+
+	return fmt.Sprintf(
+		"macro(%s) {\n%s\n}",
+		strings.Join(params, ", "),
+		m.Body.String(),
+	)
 }

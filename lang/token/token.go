@@ -45,6 +45,7 @@ const (
 	If       = "IF"
 	Else     = "ELSE"
 	Return   = "RETURN"
+	Macro    = "MACRO"
 
 	Eq    = "=="
 	NotEq = "!="
@@ -58,6 +59,7 @@ var keywords = map[string]TypeTocken{
 	"if":     If,
 	"else":   Else,
 	"return": Return,
+	"macro":  Macro,
 }
 
 func LookupIndent(indent string) TypeTocken {

@@ -79,6 +79,14 @@ func TestQuoteUnquote(t *testing.T) {
 			input:    "quote(unquote(true == false))",
 			expected: "false",
 		},
+		{
+			input:    "quote(unquote(quote(4 + 4)))",
+			expected: "(4 + 4)",
+		},
+		{
+			input:    "let quotedInfixExpression = quote(4 + 4); quote(unquote(4 + 4) + unquote(quotedInfixExpression))",
+			expected: "(8 + (4 + 4))",
+		},
 	}
 
 	for _, tt := range tests {

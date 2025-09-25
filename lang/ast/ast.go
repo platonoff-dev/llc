@@ -2,6 +2,7 @@ package ast
 
 import (
 	"bytes"
+	"fmt"
 	"strings"
 
 	"llc/lang/token"
@@ -340,4 +341,23 @@ func (hl *HashLiteral) String() string {
 	out.WriteString("}")
 
 	return out.String()
+}
+
+type MacroLiteral struct {
+	Body       *BlockStatement
+	Token      token.Token
+	Parameters []*Identifier
+}
+
+func (ml *MacroLiteral) expressionNode()      {}
+func (ml *MacroLiteral) TokenLiteral() string { return ml.Token.Literal }
+func (ml *MacroLiteral) String() string {
+	params := []string{}
+	for _, p := range ml.Parameters {
+		params = append(params, p.String())
+	}
+	return fmt.Sprintf(
+		"%s(%s) %s",
+		ml.TokenLiteral(), strings.Join(params, ", "), ml.Body.String(),
+	)
 }

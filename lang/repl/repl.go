@@ -15,10 +15,6 @@ const PROMPT = ">>>"
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
-	// env, err := files.ReadStd()
-	// if err != nil {
-	// 	panic(err)
-	// }
 
 	for {
 		fmt.Printf("%s ", PROMPT)
@@ -36,12 +32,6 @@ func Start(in io.Reader, out io.Writer) {
 			printParserErrors(out, p.Errors())
 			continue
 		}
-
-		// evaluated := evaluator.Eval(program, env)
-		// if evaluated != nil {
-		// 	_, _ = io.WriteString(out, evaluated.Inspect())
-		// 	_, _ = io.WriteString(out, "\n")
-		// }
 
 		comp := compiler.New()
 		err := comp.Compile(program)

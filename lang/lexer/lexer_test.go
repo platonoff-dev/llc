@@ -32,6 +32,7 @@ if (5 < 10) {
 "❦"
 [1, 2, 3]
 {"foo": "bar"}
+macro(x, y) { x + y };
 `
 	tests := []struct {
 		expectedType    token.TypeTocken
@@ -133,6 +134,19 @@ if (5 < 10) {
 		{token.Colon, ":"},
 		{token.String, "bar"},
 		{token.RBrace, "}"},
+
+		{token.Macro, "macro"},
+		{token.LParen, "("},
+		{token.Ident, "x"},
+		{token.Comma, ","},
+		{token.Ident, "y"},
+		{token.RParen, ")"},
+		{token.LBrace, "{"},
+		{token.Ident, "x"},
+		{token.Plus, "+"},
+		{token.Ident, "y"},
+		{token.RBrace, "}"},
+		{token.Semicolon, ";"},
 
 		{token.EOF, ""},
 	}
